@@ -14,6 +14,7 @@ app.post(telegram.getUriWebhook(), async (req, res) => {
 
   const chatId = req.body.message.chat.id
   const text = req.body.message.text
+  console.log(req.body.message)
   await telegram.sendMessage(chatId, text)
   
   res.status(200).send('ok')
