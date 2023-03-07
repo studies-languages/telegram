@@ -1,0 +1,14 @@
+# message=$1
+
+# git add .
+# git commit -m "$message"
+# git push
+
+ssh -t root@146.190.144.75  "\
+  cd projects/telegram &&\
+  git pull
+  npm run build
+  
+"
+
+echo $message

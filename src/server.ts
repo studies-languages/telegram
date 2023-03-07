@@ -1,6 +1,9 @@
 import express from 'express'
+import 'dotenv/config'
 import './utils/telegram'
+
 const app = express()
+
 
 app.get('/', (req, res) => {
   res.json({message: 'List api'})
