@@ -6,7 +6,7 @@ export class Telegram {
   #webhookURL = `${process.env.SERVER_URL}${this.#uri}`
 
   async initWebhook() {
-    const { data } = await apiTelegram('/setWebhook', {
+    const { data } = await apiTelegram.get('/setWebhook', {
       params:{
         url:this.#webhookURL
       }
