@@ -7,9 +7,8 @@ const app = express()
 app.use(express.json())
 
 app.get('/', (req, res) => {
-  res.json({ message: 'List api' })
+  res.json({ message: 'Telegram api' })
 })
-
 
 app.post(telegram.getUriWebhook(), async (req, res) => {
 
@@ -19,7 +18,6 @@ app.post(telegram.getUriWebhook(), async (req, res) => {
   
   res.status(200).send('ok')
 })
-
 
 app.listen(process.env.PORT || 8001, async () => {
   console.log('Server run http://localhost:8001');
