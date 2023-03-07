@@ -1,26 +1,28 @@
-import TelegramBot from 'node-telegram-bot-api'
+import { apiTelegram } from "./axios"
 
-const bot = new TelegramBot(process.env.TELEGRAM_TOKEN || '', {polling:true})
+export class Telegram {
 
-bot.on('message', (message:any) => {
-  const chatId = message.chat.id;
-  // console.log(message)
-  if(message.text.includes('issue')){
-    bot.sendMessage(chatId, 'Qual problema identificado?')
-    return
-  }
-  if(message.text === '/1'){
-    bot.sendMessage(chatId, 'Informe a descrição da imagem')
-    return
-  }
-  if(message.text === '/2'){
-    bot.sendMessage(chatId, 'Suas horas são 09:00')
-    return
+  #uri = `/webhook/${process.env.TELEGRAM_TOKEN}`
+  #webhookURL = `${process.env.SERVER_URL}${this.#uri}`
+
+  async initWebhook() {
+    const { data } = await apiTelegram('/setWebhook', {
+      params:{
+        url:this.#webhookURL
+      }
+    })
+    console.log(data)
   }
 
-  // console.log(message)
-  bot.sendMessage(chatId, `Olá ${message.from.first_name} ${message.from.last_name}, como posso ajudar? \n
-  /1 - Nova tarefa.
-  /2 - Buscar horas.
-  `);
-});
+  getUriWebhook() {
+    return this.#uri
+  }
+
+  async sendMessage(chatId:number, text:string){
+    await apiTelegram.post('/sendMessage', {
+      chat_id: chatId,
+      text
+    })
+  }
+}
+

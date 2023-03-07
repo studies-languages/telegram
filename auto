@@ -6,8 +6,10 @@
 
 ssh -t root@146.190.144.75  "\
   cd projects/telegram &&\
-  git pull
-  npm run build
+  git pull &&\
+  source ~/.nvm/nvm.sh &&\
+  npm run build &&\
+  pm2 restart telegram --update-env  \
   
 "
 
